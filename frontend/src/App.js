@@ -1,6 +1,6 @@
 import React from 'react';
-import { HomePage } from './pages/home';
-import { CaesarCipherPage } from './pages/caesar';
+import { HomePage } from './pages/home/home';
+import { CaesarCipherPage } from './pages/caesar/caesar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HOME_PAGE, CAESAR_CIPHER } from './constants/routeConstants';
 
