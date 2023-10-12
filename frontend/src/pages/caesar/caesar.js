@@ -112,9 +112,8 @@ export const CaesarCipherPage = () => {
             &nbsp;Text:
           </p>
           <InputGroup>
-            <FormControl
-              type="text"
-              className="p-3"
+            <textarea
+              className="p-2 form-control"
               readOnly
               placeholder={cipherValue}
             />
