@@ -1,6 +1,6 @@
 import string
 
-SHIFT = 1
+SHIFT = 3
 
 def encode_caesar(text):
     cipher = ''

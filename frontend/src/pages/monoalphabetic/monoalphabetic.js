@@ -1,27 +1,20 @@
-import React from 'react';
-import { HomeCard, Logo } from "../../common/styles";
-import { ENCRYPT, DECRYPT } from "../../constants/operationConstants";
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import { Logo, HomeCard } from "../../common/styles";
+import { DECRYPT, ENCRYPT } from "../../constants/operationConstants";
 import { EncryptDecryptSection } from "../../common/encryptDecryptSection";
-import { encodeTextCaesar, decryptTextCaesar } from '../../endpoints/caesarEndpoints';
-import emperor from '../../images/emperor.png';
+import abc from "../../images/abc.png";
 
-export const CaesarCipherPage = () => {
+export const MonoalphabeticCipherPage = () => {
   const [action, setAction] = useState(null);
   const [inputText, setInputText] = useState('');
   const [cipherValue, setCipherValue] = useState('');
+  const [cipherKey, setCipherKey] = useState('PVRHOWXUMYFKELQCIBANTGDSZJ');
 
   useEffect(() => {
     if (action === ENCRYPT) {
-      encodeTextCaesar(inputText)
-        .then((data) => {
-          setCipherValue(data.data);
-        });
+
     } else if (action === DECRYPT) {
-      decryptTextCaesar(inputText)
-        .then((data) => {
-          setCipherValue(data.data);
-        });
+
     }
   }, [inputText]);
 
@@ -32,35 +25,37 @@ export const CaesarCipherPage = () => {
   return (
     <HomeCard>
       <div className="mb-4">
-        <Logo src={emperor}/>
+        <Logo src={abc}/>
         <h1
           className="mt-4"
         >
-          Welcome to Caesar Cipher!
+          Try the Monoalphabetic Cipher!
         </h1>
       </div>
       <div className="mb-4">
         <h5 className='mb-2'>
-          Why is it called Caesar Cipher?
+          What does the Monoalphabetic Cipher do?
         </h5>
         <p className="mb-4" style={{ 'width': '100%', 'margin': 'auto' }}>
-          The Caesar cipher is named after Julius Caesar,
-          who, according to Suetonius, used it with a shift of
-          three (A becoming D when encrypting, and D becoming A
-          when decrypting) to protect messages of military significance.
+          In monoalphabetic, each alphabet in plain text can be replaced by
+          any other alphabet except the original alphabet. That is, A can be
+          replaced by any other alphabet from B to Z. B can be replaced by A or C to Z.
+          C can be replaced by A, B, and D to Z, etc.
         </p>
         <figcaption className="blockquote-footer">
           <cite title="Source Title">
-            Wikipedia
+            Educba.com
           </cite>
         </figcaption>
       </div>
       <EncryptDecryptSection
         action={action}
         setAction={setAction}
+        cipherKey={cipherKey}
         cipherValue={cipherValue}
+        setCipherKey={setCipherKey}
         setInputText={setInputText}
       />
     </HomeCard>
-  )
+  );
 }

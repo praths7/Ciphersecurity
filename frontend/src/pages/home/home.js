@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { CAESAR_CIPHER } from '../../constants/routeConstants';
-import { HomeCard, Logo } from './style';
+import {CAESAR_CIPHER, MONOALPHABETIC_CIPHER} from '../../constants/routeConstants';
+import { HomeCard, Logo } from '../../common/styles';
 import cipherIcon from '../../images/cipher.png';
 
 export const HomePage = () => {
@@ -37,10 +37,10 @@ export const HomePage = () => {
 				variant='outline-dark'
 				className="p-2"
 				onClick={() => {
-					navigateTo(CAESAR_CIPHER);
+					navigateTo(MONOALPHABETIC_CIPHER);
 				}}
 			>
-				Playfair Cipher
+				Monoalphabetic Cipher
 			</Button>
 		</HomeCard>
 	)
