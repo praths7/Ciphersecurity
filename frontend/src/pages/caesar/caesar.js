@@ -2,10 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Button, FormControl, InputGroup,
   Modal,
+  Button,
+  InputGroup,
 } from 'react-bootstrap';
-import { encodeTextCaesar } from '../../endpoints/caesarEP';
+import { encodeTextCaesar, decryptTextCaesar } from '../../endpoints/caesarEP';
 import InputGroupText from 'react-bootstrap/esm/InputGroupText';
 import { HomeCard, Logo } from "../home/style";
 import emperor from '../../images/emperor.png';
@@ -20,17 +21,34 @@ export const CaesarCipherPage = () => {
   const [cipherValue, setCipherValue] = useState('');
 
   useEffect(() => {
-    encodeTextCaesar(inputText)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return '';
-      })
-      .then((data) => {
-        setCipherValue(data.data);
-      });
+    if (action === ENCRYPT) {
+      encodeTextCaesar(inputText)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return '';
+        })
+        .then((data) => {
+          setCipherValue(data.data);
+        });
+    } else if (action === DECRYPT) {
+      decryptTextCaesar(inputText)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return '';
+        })
+        .then((data) => {
+          setCipherValue(data.data);
+        });
+    }
   }, [inputText]);
+
+  useEffect(() => {
+    setCipherValue('');
+  }, [action]);
 
   return (
     <HomeCard>
@@ -119,6 +137,9 @@ export const CaesarCipherPage = () => {
             />
             <Button
               variant="outline-secondary"
+              onClick={() => {
+                navigator.clipboard.writeText(cipherValue);
+              }}
             >
               Copy
             </Button>
