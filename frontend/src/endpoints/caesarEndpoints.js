@@ -9,6 +9,11 @@ export async function encodeTextCaesar(text) {
 			body: JSON.stringify({
 				text: text,
 			})
+	}).then((response) => {
+		if (response.ok) {
+			return response.json();
+		}
+		return { data: '', };
 	});
 }
 
@@ -23,5 +28,10 @@ export async function decryptTextCaesar(text) {
 		body: JSON.stringify({
 			text: text,
 		})
+	}).then((response) => {
+		if (response.ok) {
+			return response.json();
+		}
+		return { data: '', };
 	});
 }

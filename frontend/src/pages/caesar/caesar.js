@@ -21,23 +21,11 @@ export const CaesarCipherPage = () => {
   useEffect(() => {
     if (action === ENCRYPT) {
       encodeTextCaesar(inputText)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          return '';
-        })
         .then((data) => {
           setCipherValue(data.data);
         });
     } else if (action === DECRYPT) {
       decryptTextCaesar(inputText)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          return '';
-        })
         .then((data) => {
           setCipherValue(data.data);
         });
