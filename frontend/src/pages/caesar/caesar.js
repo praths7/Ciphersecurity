@@ -6,13 +6,11 @@ import {
   Button,
   InputGroup,
 } from 'react-bootstrap';
+import { ENCRYPT, DECRYPT } from "../../constants/operationConstants";
 import { encodeTextCaesar, decryptTextCaesar } from '../../endpoints/caesarEndpoints';
 import InputGroupText from 'react-bootstrap/esm/InputGroupText';
 import { HomeCard, Logo } from "../home/style";
 import emperor from '../../images/emperor.png';
-
-const ENCRYPT = 'encrypt';
-const DECRYPT = 'decrypt';
 
 export const CaesarCipherPage = () => {
   const navigateTo = useNavigate();
