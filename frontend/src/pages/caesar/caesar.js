@@ -6,7 +6,7 @@ import {
   Button,
   InputGroup,
 } from 'react-bootstrap';
-import { encodeTextCaesar, decryptTextCaesar } from '../../endpoints/caesarEP';
+import { encodeTextCaesar, decryptTextCaesar } from '../../endpoints/caesarEndpoints';
 import InputGroupText from 'react-bootstrap/esm/InputGroupText';
 import { HomeCard, Logo } from "../home/style";
 import emperor from '../../images/emperor.png';
