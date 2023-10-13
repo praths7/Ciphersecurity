@@ -4,6 +4,7 @@ import { Button, InputGroup, Modal } from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
+import {NUMBER_OF_CHARACTERS} from "../constants/generalConstants";
 
 export const EncryptDecryptSection = ({
   action,
@@ -14,6 +15,7 @@ export const EncryptDecryptSection = ({
   setInputText
 }) => {
   const navigateTo = useNavigate();
+  const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
   return (
     <>
       <Button
@@ -66,27 +68,38 @@ export const EncryptDecryptSection = ({
             />
           </InputGroup>
           {
-            cipherKey &&
+            cipherKey?.length >= 0 &&
             <div>
               <p>
                 Also enter&nbsp;
                 { action === ENCRYPT ? "encoding" : action === DECRYPT && 'decoding' }
                 &nbsp;key.&nbsp;
-                { action === ENCRYPT && "Or alternatively generate one." }
+                { action === ENCRYPT && "Or alternatively, generate one." }
               </p>
-              <InputGroup className="mb-3">
+              <InputGroup
+                className="mb-3"
+                hasValidation
+              >
                 <InputGroupText>
                   Key
                 </InputGroupText>
                 <input
                   type="text"
-                  className="p-2 form-control"
+                  className={`p-2 form-control ${!isCipherValid && 'is-invalid'}`}
                   value={cipherKey}
                   onChange={(e) => {
                     setCipherKey(e.target.value);
                   }}
-                  placeholder="Add a 26 character mapping scheme here."
+                  required
                 />
+                {
+                  !isCipherValid &&
+                  <div
+                    className="invalid-feedback"
+                  >
+                    Please enter a 26 character mapping scheme (key).
+                  </div>
+                }
               </InputGroup>
               {
                 action === ENCRYPT &&
@@ -101,7 +114,7 @@ export const EncryptDecryptSection = ({
                         });
                     }}
                   >
-                    Generate Another
+                    Generate Key
                   </Button>
                 </div>
               }

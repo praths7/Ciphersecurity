@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Logo, HomeCard } from "../../common/styles";
 import { DECRYPT, ENCRYPT } from "../../constants/operationConstants";
+import { NUMBER_OF_CHARACTERS } from "../../constants/generalConstants";
 import { EncryptDecryptSection } from "../../common/encryptDecryptSection";
 import abc from "../../images/abc.png";
 import {
@@ -11,20 +12,22 @@ import {
 export const MonoalphabeticCipherPage = () => {
   const [action, setAction] = useState(null);
   const [inputText, setInputText] = useState('');
+  const [cipherKey, setCipherKey] = useState('');
   const [cipherValue, setCipherValue] = useState('');
-  const [cipherKey, setCipherKey] = useState('PVRHOWXUMYFKELQCIBANTGDSZJ');
 
   useEffect(() => {
-    if (action === ENCRYPT) {
-      encodeTextMonoalphabetic(inputText, cipherKey)
-        .then((data) => {
-          setCipherValue(data.data);
-        });
-    } else if (action === DECRYPT) {
-      decodeTextMonoalphabetic(inputText, cipherKey)
-        .then((data) => {
-          setCipherValue(data.data);
-        });
+    if (cipherKey.length === NUMBER_OF_CHARACTERS) {
+      if (action === ENCRYPT) {
+        encodeTextMonoalphabetic(inputText, cipherKey)
+          .then((data) => {
+            setCipherValue(data.data);
+          });
+      } else if (action === DECRYPT) {
+        decodeTextMonoalphabetic(inputText, cipherKey)
+          .then((data) => {
+            setCipherValue(data.data);
+          });
+      }
     }
   }, [inputText, cipherKey]);
 
