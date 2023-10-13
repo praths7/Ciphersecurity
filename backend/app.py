@@ -3,6 +3,7 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 
 from services.caesar import encode_caesar, decode_caesar
+from services.monoalphabetic import encode_monoalphabetic, decode_monoalphabetic, generatem_key
 
 def defaultHandler(err):
     response = err.get_response()
@@ -43,4 +44,30 @@ def decode_caesar_ciper():
     payload = request.get_json()
     return dumps({
         'data': decode_caesar(payload['text'])
+    })
+
+# /encode/caesar-cipher
+@APP.route('/encode/monoalphabetic-cipher', methods=['POST'])
+@cross_origin()
+def encode_monoalphabetic_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': encode_monoalphabetic(payload['text'], payload['cipherKey'])
+    })
+
+# /encode/caesar-cipher
+@APP.route('/decode/monoalphabetic-cipher', methods=['POST'])
+@cross_origin()
+def decode_monoalphabetic_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': decode_monoalphabetic(payload['text'], payload['cipherKey'])
+    })
+
+# /generate/monoalphabetic-key
+@APP.route('/generate/monoalphabetic-key', methods=['GET'])
+@cross_origin()
+def generate_monoalphabetic_key():
+    return dumps({
+        'data': generatem_key()
     })

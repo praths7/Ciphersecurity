@@ -3,6 +3,10 @@ import { Logo, HomeCard } from "../../common/styles";
 import { DECRYPT, ENCRYPT } from "../../constants/operationConstants";
 import { EncryptDecryptSection } from "../../common/encryptDecryptSection";
 import abc from "../../images/abc.png";
+import {
+  encodeTextMonoalphabetic,
+  decodeTextMonoalphabetic
+} from "../../endpoints/monoalphabeticEndpoints";
 
 export const MonoalphabeticCipherPage = () => {
   const [action, setAction] = useState(null);
@@ -12,9 +16,15 @@ export const MonoalphabeticCipherPage = () => {
 
   useEffect(() => {
     if (action === ENCRYPT) {
-
+      encodeTextMonoalphabetic(inputText, cipherKey)
+        .then((data) => {
+          setCipherValue(data.data);
+        });
     } else if (action === DECRYPT) {
-
+      decodeTextMonoalphabetic(inputText, cipherKey)
+        .then((data) => {
+          setCipherValue(data.data);
+        });
     }
   }, [inputText]);
 
@@ -52,8 +62,8 @@ export const MonoalphabeticCipherPage = () => {
         action={action}
         setAction={setAction}
         cipherKey={cipherKey}
-        cipherValue={cipherValue}
         setCipherKey={setCipherKey}
+        cipherValue={cipherValue}
         setInputText={setInputText}
       />
     </HomeCard>

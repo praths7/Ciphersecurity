@@ -8,8 +8,8 @@ export const EncryptDecryptSection = ({
   action,
   setAction,
   cipherKey,
-  cipherValue,
   setCipherKey,
+  cipherValue,
   setInputText
 }) => {
   const navigateTo = useNavigate();
@@ -79,8 +79,9 @@ export const EncryptDecryptSection = ({
                 <input
                   type="text"
                   className="p-2 form-control"
+                  value={cipherKey}
                   onChange={(e) => {
-                    setInputText(e.target.value);
+                    setCipherKey(e.target.value);
                   }}
                   placeholder="Add a 26 character mapping scheme here."
                 />
@@ -89,8 +90,11 @@ export const EncryptDecryptSection = ({
                 <Button
                   variant="outline-dark"
                   className="mb-3"
+                  onChange={() => {
+                    // TODO: add an endpoint for key generation
+                  }}
                 >
-                  Generate
+                  Generate Another
                 </Button>
               </div>
             </div>
