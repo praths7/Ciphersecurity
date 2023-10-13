@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 
 from services.caesar import encode_caesar, decode_caesar
 from services.monoalphabetic import encode_monoalphabetic, decode_monoalphabetic, generatem_key
+from services.black_chamber import encode_black_chamber, decode_black_chamber, generate_homophonic_table
 
 def defaultHandler(err):
     response = err.get_response()
@@ -70,4 +71,31 @@ def decode_monoalphabetic_ciper():
 def generate_monoalphabetic_key():
     return dumps({
         'data': generatem_key()
+    })
+
+# /encode/homophonic-cipher
+@APP.route('/encode/homophonic-cipher', methods=['POST'])
+@cross_origin()
+def encode_homophonic_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': encode_black_chamber(payload['text'], payload['cipherKey'])
+    })
+
+# /decode/homophonic-cipher
+@APP.route('/decode/homophonic-cipher', methods=['POST'])
+@cross_origin()
+def decode_homophonic_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': decode_black_chamber(payload['text'], payload['cipherKey'])
+    })
+
+# /generate/homophonic-mapping
+@APP.route('/generate/homophonic-mapping', methods=['GET'])
+@cross_origin()
+def generate_homophonic_mapping():
+    payload = request.get_json()
+    return dumps({
+        'data': generate_homophonic_table(payload['cipherKey'])
     })

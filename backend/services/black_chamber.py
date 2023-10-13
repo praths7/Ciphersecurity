@@ -2,7 +2,7 @@ import json
 import string
 import random
 
-def generate_cipher_table(key):
+def generate_homophonic_table(key):
     key = key.lower()
     mappings = {}
     alphabet = list(string.printable)
@@ -27,7 +27,7 @@ def generate_cipher_table(key):
 
 def encode_black_chamber(text, key):
     cipher = ''
-    mappings = generate_cipher_table(key)
+    mappings = generate_homophonic_table(key)
     for character in text:
         candidates = mappings[character]
         key = random.choice(candidates)
@@ -37,7 +37,7 @@ def encode_black_chamber(text, key):
 
 def decode_black_chamber(cipher, key):
     text = ''
-    mappings = generate_cipher_table(key)
+    mappings = generate_homophonic_table(key)
     for code in cipher.split():
         for entry in mappings:
             if int(code) in mappings[entry]:
