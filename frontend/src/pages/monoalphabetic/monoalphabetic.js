@@ -26,7 +26,7 @@ export const MonoalphabeticCipherPage = () => {
           setCipherValue(data.data);
         });
     }
-  }, [inputText]);
+  }, [inputText, cipherKey]);
 
   useEffect(() => {
     setCipherValue('');

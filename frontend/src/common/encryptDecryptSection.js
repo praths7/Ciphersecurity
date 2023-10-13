@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, InputGroup, Modal } from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
+import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
 
 export const EncryptDecryptSection = ({
   action,
@@ -70,7 +71,8 @@ export const EncryptDecryptSection = ({
               <p>
                 Also enter&nbsp;
                 { action === ENCRYPT ? "encoding" : action === DECRYPT && 'decoding' }
-                &nbsp;key. Or alternatively generate one.
+                &nbsp;key.&nbsp;
+                { action === ENCRYPT && "Or alternatively generate one." }
               </p>
               <InputGroup className="mb-3">
                 <InputGroupText>
@@ -86,17 +88,23 @@ export const EncryptDecryptSection = ({
                   placeholder="Add a 26 character mapping scheme here."
                 />
               </InputGroup>
-              <div className="text-center">
-                <Button
-                  variant="outline-dark"
-                  className="mb-3"
-                  onChange={() => {
-                    // TODO: add an endpoint for key generation
-                  }}
-                >
-                  Generate Another
-                </Button>
-              </div>
+              {
+                action === ENCRYPT &&
+                <div className="text-center">
+                  <Button
+                    variant="outline-dark"
+                    className="mb-3"
+                    onClick={() => {
+                      generateMonoalphabeticKey()
+                        .then((data) => {
+                          setCipherKey(data.data);
+                        });
+                    }}
+                  >
+                    Generate Another
+                  </Button>
+                </div>
+              }
             </div>
           }
           <p>
