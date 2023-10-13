@@ -1,7 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import {CAESAR_CIPHER, MONOALPHABETIC_CIPHER} from '../../constants/routeConstants';
+import {
+	CAESAR_CIPHER,
+	HOMOPHONIC_CIPHER,
+	MONOALPHABETIC_CIPHER
+} from '../../constants/routeConstants';
 import { HomeCard, Logo } from '../../common/styles';
 import cipherIcon from '../../images/cipher.png';
 
@@ -35,12 +39,21 @@ export const HomePage = () => {
 			</Button>
 			<Button
 				variant='outline-dark'
-				className="p-2"
+				className="mb-3 p-2"
 				onClick={() => {
 					navigateTo(MONOALPHABETIC_CIPHER);
 				}}
 			>
 				Monoalphabetic Cipher
+			</Button>
+			<Button
+				variant='outline-dark'
+				className="p-2"
+				onClick={() => {
+					navigateTo(HOMOPHONIC_CIPHER);
+				}}
+			>
+				Homophonic Cipher
 			</Button>
 		</HomeCard>
 	)
