@@ -46,7 +46,7 @@ def decode_caesar_ciper():
         'data': decode_caesar(payload['text'])
     })
 
-# /encode/caesar-cipher
+# /encode/monoalphabetic-cipher
 @APP.route('/encode/monoalphabetic-cipher', methods=['POST'])
 @cross_origin()
 def encode_monoalphabetic_ciper():
@@ -55,7 +55,7 @@ def encode_monoalphabetic_ciper():
         'data': encode_monoalphabetic(payload['text'], payload['cipherKey'])
     })
 
-# /encode/caesar-cipher
+# /decode/monoalphabetic-cipher
 @APP.route('/decode/monoalphabetic-cipher', methods=['POST'])
 @cross_origin()
 def decode_monoalphabetic_ciper():

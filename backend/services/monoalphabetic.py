@@ -1,4 +1,5 @@
 import string
+import random
 
 def execute_mapping(input, old_dict, new_dict):
     mapping = ''
@@ -26,4 +27,7 @@ def decode_monoalphabetic(cipher, key):
     return result
 
 def generatem_key():
-    return "PVRHOWXUMYFKELQCIBANTGDSZJ"
+    alphabet = list(string.ascii_uppercase)
+    random.shuffle(alphabet)
+    key = ''
+    return key.join(alphabet)
