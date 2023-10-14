@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {Button, InputGroup, Modal, Table} from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
@@ -69,6 +69,17 @@ export const EncryptDecryptSection = ({
   const navigateTo = useNavigate();
   const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
   const [mapping, setMapping] = useState(null);
+  const [fetchMapping, setFetchMapping] = useState(0);
+
+  useEffect(() => {
+    if (fetchMapping !== 0) {
+      getHomophonicMapping(cipherKey)
+        .then((data) => {
+          setMapping(data.data);
+        });
+    }
+  }, [fetchMapping]);
+
   return (
     <>
       <Button
@@ -143,6 +154,9 @@ export const EncryptDecryptSection = ({
                   value={cipherKey}
                   onChange={(e) => {
                     setCipherKey(e.target.value);
+                    if (isHomophonic && mapping) {
+                      setFetchMapping(fetchMapping => fetchMapping + 1);
+                    }
                   }}
                   required
                 />
@@ -179,11 +193,7 @@ export const EncryptDecryptSection = ({
                     variant="outline-dark"
                     className="mb-3"
                     onClick={() => {
-                      getHomophonicMapping(cipherKey)
-                        .then((data) => {
-                          console.log('zzz', data.data);
-                          setMapping(data.data);
-                        });
+                      setFetchMapping(fetchMapping => fetchMapping + 1);
                     }}
                   >
                     Check Mapping
