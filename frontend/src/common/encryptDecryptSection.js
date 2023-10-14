@@ -30,6 +30,9 @@ const MappingTable = ({ mapping, cipherKey }) => {
             </th>
           )
         })}
+        <th>
+          ...
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -49,6 +52,9 @@ const MappingTable = ({ mapping, cipherKey }) => {
                 )
               })
             }
+            <td>
+              ...
+            </td>
           </tr>
         )
       })}
@@ -191,12 +197,17 @@ export const EncryptDecryptSection = ({
                 <div className="text-center">
                   <Button
                     variant="outline-dark"
-                    className="mb-3"
+                    className="mb-3 mx-2"
                     onClick={() => {
-                      setFetchMapping(fetchMapping => fetchMapping + 1);
+                      if (mapping) {
+                        setMapping(null);
+                        setFetchMapping(0);
+                      } else {
+                        setFetchMapping(fetchMapping => fetchMapping + 1);
+                      }
                     }}
                   >
-                    Check Mapping
+                    { !mapping ? 'Show Mapping' : 'Hide Mapping' }
                   </Button>
                 </div>
               }
