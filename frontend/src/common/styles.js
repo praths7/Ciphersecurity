@@ -13,14 +13,10 @@ export const HomeCard = styled.div`
   position: absolute;
   flex-direction: column;
   text-align: center;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   margin: auto;
   padding: 50px;
   max-width: 600px;
-  max-height: 715px;
+  height: auto;
   border-radius: 50px;
   background-color: white;
   box-shadow: 12px 12px 12px 8px rgba(0,0,0,0.2);
@@ -32,3 +28,11 @@ export const HomeCard = styled.div`
     max-height: 750px;
   }
 `;
+
+export const PageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+`

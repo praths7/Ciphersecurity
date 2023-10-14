@@ -12,7 +12,8 @@ export const EncryptDecryptSection = ({
   cipherKey,
   setCipherKey,
   cipherValue,
-  setInputText
+  setInputText,
+  isHomophonic = false
 }) => {
   const navigateTo = useNavigate();
   const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
@@ -85,7 +86,7 @@ export const EncryptDecryptSection = ({
                 </InputGroupText>
                 <input
                   type="text"
-                  className={`p-2 form-control ${!isCipherValid && 'is-invalid'}`}
+                  className={`p-2 form-control ${!isHomophonic && !isCipherValid && 'is-invalid'}`}
                   value={cipherKey}
                   onChange={(e) => {
                     setCipherKey(e.target.value);
@@ -93,7 +94,7 @@ export const EncryptDecryptSection = ({
                   required
                 />
                 {
-                  !isCipherValid &&
+                  !isHomophonic && !isCipherValid &&
                   <div
                     className="invalid-feedback"
                   >
@@ -102,7 +103,7 @@ export const EncryptDecryptSection = ({
                 }
               </InputGroup>
               {
-                action === ENCRYPT &&
+                !isHomophonic && action === ENCRYPT &&
                 <div className="text-center">
                   <Button
                     variant="outline-dark"
