@@ -2,6 +2,19 @@ import json
 import string
 import random
 
+ALLOWED_TO_DISPLAY = 13
+
+def filtered_homophonic_table(key):
+    filtered = {}
+    full_table = generate_homophonic_table(key)
+    permitted = list(string.ascii_lowercase)
+    allowed = 0
+    while (allowed < ALLOWED_TO_DISPLAY):
+        i = allowed
+        filtered[permitted[i]] = full_table[permitted[i]]
+        allowed += 1
+    return filtered
+
 def generate_homophonic_table(key):
     key = key.lower()
     mappings = {}

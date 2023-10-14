@@ -15,16 +15,18 @@ export const HomophonicCipherPage = () => {
   const [cipherValue, setCipherValue] = useState('');
 
   useEffect(() => {
-    if (action === ENCRYPT) {
-      encodeTextHomophonic(inputText, cipherKey)
-        .then((data) => {
-          setCipherValue(data.data);
-        });
-    } else if (action === DECRYPT) {
-      decodeTextHomophonic(inputText, cipherKey)
-        .then((data) => {
-          setCipherValue(data.data);
-        });
+    if (cipherKey.length > 0) {
+      if (action === ENCRYPT) {
+        encodeTextHomophonic(inputText, cipherKey)
+          .then((data) => {
+            setCipherValue(data.data);
+          });
+      } else if (action === DECRYPT) {
+        decodeTextHomophonic(inputText, cipherKey)
+          .then((data) => {
+            setCipherValue(data.data);
+          });
+      }
     }
   }, [inputText, cipherKey]);
 

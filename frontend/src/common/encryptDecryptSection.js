@@ -1,10 +1,61 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, InputGroup, Modal } from "react-bootstrap";
+import {Button, InputGroup, Modal, Table} from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
+import { getHomophonicMapping } from "../endpoints/homophonicEndpoints";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
-import {NUMBER_OF_CHARACTERS} from "../constants/generalConstants";
+import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
+
+const MappingTable = ({ mapping, cipherKey }) => {
+  const headers = [];
+  const keyAnchors = cipherKey.split('');
+  Object.keys(mapping).forEach((k) => {
+    let entry = {};
+    entry[k] = mapping[k];
+    headers.push(entry);
+  });
+  return (
+    <Table>
+      <thead>
+      <tr>
+        <th scope="col" >
+          #
+        </th>
+        {headers.map((key) => {
+          const keyName = Object.keys(key);
+          return (
+            <th scope="col" >
+              { keyName[0] }
+            </th>
+          )
+        })}
+      </tr>
+      </thead>
+      <tbody>
+      {keyAnchors.map((key, entryIndex) => {
+        return (
+          <tr>
+            <th scope="row">
+              { key }
+            </th>
+            {
+              headers.map((key) => {
+                const keyName = Object.keys(key);
+                return (
+                  <td>
+                    { String((key[keyName])[entryIndex]) }
+                  </td>
+                )
+              })
+            }
+          </tr>
+        )
+      })}
+      </tbody>
+    </Table>
+  )
+}
 
 export const EncryptDecryptSection = ({
   action,
@@ -17,6 +68,7 @@ export const EncryptDecryptSection = ({
 }) => {
   const navigateTo = useNavigate();
   const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
+  const [mapping, setMapping] = useState(null);
   return (
     <>
       <Button
@@ -38,6 +90,7 @@ export const EncryptDecryptSection = ({
         Decrypt
       </Button>
       <Modal
+        className={`${mapping && 'modal-lg'}`}
         show={action !== null}
         onHide={() => {
           setAction(null);
@@ -119,8 +172,27 @@ export const EncryptDecryptSection = ({
                   </Button>
                 </div>
               }
+              {
+                isHomophonic &&
+                <div className="text-center">
+                  <Button
+                    variant="outline-dark"
+                    className="mb-3"
+                    onClick={() => {
+                      getHomophonicMapping(cipherKey)
+                        .then((data) => {
+                          console.log('zzz', data.data);
+                          setMapping(data.data);
+                        });
+                    }}
+                  >
+                    Check Mapping
+                  </Button>
+                </div>
+              }
             </div>
           }
+          { mapping && <MappingTable mapping={mapping} cipherKey={cipherKey}/> }
           <p>
             { action === ENCRYPT ? "Encoded" : action === DECRYPT && 'Decoded' }
             &nbsp;Text:

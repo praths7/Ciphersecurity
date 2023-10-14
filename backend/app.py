@@ -1,10 +1,11 @@
+import string
 from json import dumps
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 
 from services.caesar import encode_caesar, decode_caesar
 from services.monoalphabetic import encode_monoalphabetic, decode_monoalphabetic, generatem_key
-from services.black_chamber import encode_black_chamber, decode_black_chamber, generate_homophonic_table
+from services.black_chamber import encode_black_chamber, decode_black_chamber, filtered_homophonic_table
 
 def defaultHandler(err):
     response = err.get_response()
@@ -92,10 +93,10 @@ def decode_homophonic_ciper():
     })
 
 # /generate/homophonic-mapping
-@APP.route('/generate/homophonic-mapping', methods=['GET'])
+@APP.route('/generate/homophonic-mapping', methods=['POST'])
 @cross_origin()
 def generate_homophonic_mapping():
     payload = request.get_json()
     return dumps({
-        'data': generate_homophonic_table(payload['cipherKey'])
+        'data': filtered_homophonic_table(payload['cipherKey'])
     })
