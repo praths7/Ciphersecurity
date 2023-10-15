@@ -81,5 +81,3 @@ def decode_homophonic(cipher, key):
             if int(code) in mappings[entry]:
                 text += entry
     return text
-
-base64_homophonic_table('word')
