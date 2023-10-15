@@ -24,7 +24,7 @@ def base64_homophonic_table(key):
     columns = []
     values = []
     for header in table:
-        columns.append(str(header))
+        columns.append(str(repr(header)))
     for index, _ in enumerate(list(key)):
         row = []
         for header in table:
@@ -81,3 +81,5 @@ def decode_black_chamber(cipher, key):
             if int(code) in mappings[entry]:
                 text += entry
     return text
+
+base64_homophonic_table('word')
