@@ -4,7 +4,7 @@ import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
 import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
 import { HomeButton, MappingTable } from "./components";
-import { getHomophonicMapping } from "../endpoints/homophonicEndpoints";
+import {getBase64HomophonicMapping, getHomophonicMapping} from "../endpoints/homophonicEndpoints";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
 
 export const EncryptDecryptSection = ({
@@ -17,6 +17,7 @@ export const EncryptDecryptSection = ({
   isHomophonic = false
 }) => {
   const [mapping, setMapping] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [fetchMapping, setFetchMapping] = useState(0);
   const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
 
@@ -141,7 +142,7 @@ export const EncryptDecryptSection = ({
                 </div>
               }
               {
-                isHomophonic &&
+                isHomophonic && cipherKey.length > 0 &&
                 <div className="text-center">
                   <Button
                     variant="outline-dark"
@@ -156,6 +157,29 @@ export const EncryptDecryptSection = ({
                     }}
                   >
                     { !mapping ? 'Show Mapping' : 'Hide Mapping' }
+                  </Button>
+                  <Button
+                    variant="outline-dark"
+                    role="status"
+                    className="mb-3"
+                    onClick={() => {
+                      setLoading(true);
+                      getBase64HomophonicMapping(cipherKey)
+                        .then((data) => {
+                          const base64Value = data.data;
+                          const downloadLink = document.createElement("a");
+                          downloadLink.href = base64Value;
+                          downloadLink.download = 'FullHomophonicMapping.png';
+                          downloadLink.click();
+                        })
+                        .then(() => {
+                          setLoading(false);
+                        })
+                    }}
+                  >
+                    { loading && <span className="spinner-border spinner-border-sm" role="status"/>}
+                    &nbsp;
+                    { loading ? 'Downloading...' : 'Download Full Mapping' }
                   </Button>
                 </div>
               }

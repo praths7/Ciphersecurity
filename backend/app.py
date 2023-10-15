@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 
 from services.caesar import encode_caesar, decode_caesar
 from services.monoalphabetic import encode_monoalphabetic, decode_monoalphabetic, generatem_key
-from services.black_chamber import encode_black_chamber, decode_black_chamber, filtered_homophonic_table
+from services.black_chamber import encode_black_chamber, decode_black_chamber, filtered_homophonic_table, base64_homophonic_table
 
 def defaultHandler(err):
     response = err.get_response()
@@ -99,4 +99,12 @@ def generate_homophonic_mapping():
     payload = request.get_json()
     return dumps({
         'data': filtered_homophonic_table(payload['cipherKey'])
+    })
+
+@APP.route('/generate/base64-homophonic-mapping', methods=['POST'])
+@cross_origin()
+def generate_base64_homophonic_mapping():
+    payload = request.get_json()
+    return dumps({
+        'data': base64_homophonic_table(payload['cipherKey'])
     })

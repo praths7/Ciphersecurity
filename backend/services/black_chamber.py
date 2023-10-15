@@ -1,6 +1,10 @@
 import json
 import string
 import random
+import base64
+import numpy as np
+import pandas as pd
+import dataframe_image as dfi
 
 ALLOWED_TO_DISPLAY = 13
 
@@ -14,6 +18,27 @@ def filtered_homophonic_table(key):
         filtered[permitted[i]] = full_table[permitted[i]]
         allowed += 1
     return filtered
+
+def base64_homophonic_table(key):
+    table = generate_homophonic_table(key)
+    columns = []
+    values = []
+    for header in table:
+        columns.append(str(header))
+    for index, _ in enumerate(list(key)):
+        row = []
+        for header in table:
+            row.append(table[header][index])
+        values.append(row)
+    df = pd.DataFrame(np.array(values), index=list(key), columns=columns)
+    df_styled = df.style.background_gradient()
+    filepath = './table.png'
+    dfi.export(df_styled, filepath, max_cols=-1)
+    binary_fc = open(filepath, 'rb').read()
+    base64_utf8_str = base64.b64encode(binary_fc).decode('utf-8')
+    ext = filepath.split('.')[-1]
+    dataurl = f'data:image/{ext};base64,{base64_utf8_str}'
+    return dataurl
 
 def generate_homophonic_table(key):
     key = key.lower()
@@ -56,8 +81,3 @@ def decode_black_chamber(cipher, key):
             if int(code) in mappings[entry]:
                 text += entry
     return text
-
-
-#KEY = 'thiskeyisverylong'
-#cipher = encode_black_chamber('Hey Betty! How are you doing? I hope everything is well...', KEY)
-#print(decode_black_chamber(cipher, KEY))
