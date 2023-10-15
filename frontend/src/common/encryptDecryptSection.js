@@ -73,9 +73,9 @@ export const EncryptDecryptSection = ({
   isHomophonic = false
 }) => {
   const navigateTo = useNavigate();
-  const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
   const [mapping, setMapping] = useState(null);
   const [fetchMapping, setFetchMapping] = useState(0);
+  const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
 
   useEffect(() => {
     if (fetchMapping !== 0) {
@@ -85,6 +85,11 @@ export const EncryptDecryptSection = ({
         });
     }
   }, [fetchMapping]);
+
+  useEffect(() => {
+    setMapping(null);
+    setFetchMapping(0);
+  }, [action]);
 
   return (
     <>

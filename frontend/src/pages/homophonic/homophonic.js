@@ -10,6 +10,7 @@ import goldKey from "../../images/gold-key.png";
 
 export const HomophonicCipherPage = () => {
   const [action, setAction] = useState(null);
+  const [mapping, setMapping] = useState(null);
   const [inputText, setInputText] = useState('');
   const [cipherKey, setCipherKey] = useState('');
   const [cipherValue, setCipherValue] = useState('');
@@ -31,6 +32,7 @@ export const HomophonicCipherPage = () => {
   }, [inputText, cipherKey]);
 
   useEffect(() => {
+    setCipherKey('');
     setCipherValue('');
   }, [action]);
 
@@ -68,6 +70,8 @@ export const HomophonicCipherPage = () => {
           cipherValue={cipherValue}
           setInputText={setInputText}
           isHomophonic
+          mapping={mapping}
+          setMapping={setMapping}
         />
       </HomeCard>
     </PageContainer>
