@@ -1,67 +1,11 @@
-import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
-import {Button, InputGroup, Modal, Table} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, InputGroup, Modal } from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
+import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
+import { HomeButton, MappingTable } from "./components";
 import { getHomophonicMapping } from "../endpoints/homophonicEndpoints";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
-import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
-
-const MappingTable = ({ mapping, cipherKey }) => {
-  const headers = [];
-  const keyAnchors = cipherKey.split('');
-  Object.keys(mapping).forEach((k) => {
-    let entry = {};
-    entry[k] = mapping[k];
-    headers.push(entry);
-  });
-  return (
-    <Table>
-      <thead>
-      <tr>
-        <th scope="col" >
-          #
-        </th>
-        {headers.map((key) => {
-          const keyName = Object.keys(key);
-          return (
-            <th scope="col" >
-              { keyName[0] }
-            </th>
-          )
-        })}
-        <th>
-          ...
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      {keyAnchors.map((key, entryIndex) => {
-        return (
-          <tr>
-            <th scope="row">
-              { key }
-            </th>
-            {
-              headers.map((key) => {
-                const keyName = Object.keys(key);
-                return (
-                  <td>
-                    { String((key[keyName])[entryIndex]) }
-                  </td>
-                )
-              })
-            }
-            <td>
-              ...
-            </td>
-          </tr>
-        )
-      })}
-      </tbody>
-    </Table>
-  )
-}
 
 export const EncryptDecryptSection = ({
   action,
@@ -72,7 +16,6 @@ export const EncryptDecryptSection = ({
   setInputText,
   isHomophonic = false
 }) => {
-  const navigateTo = useNavigate();
   const [mapping, setMapping] = useState(null);
   const [fetchMapping, setFetchMapping] = useState(0);
   const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
@@ -134,7 +77,7 @@ export const EncryptDecryptSection = ({
           </p>
           <InputGroup className="mb-3">
             <InputGroupText>
-              Text
+              { action === ENCRYPT ? "Text" : action === DECRYPT && 'Cipher' }
             </InputGroupText>
             <textarea
               className="form-control"
@@ -250,15 +193,7 @@ export const EncryptDecryptSection = ({
           </Button>
         </Modal.Footer>
       </Modal>
-      <Button
-        variant='secondary'
-        className='p-2'
-        onClick={() => {
-          navigateTo('/');
-        }}
-      >
-        { 'Home Page' }
-      </Button>
+      <HomeButton/>
     </>
   )
 }
