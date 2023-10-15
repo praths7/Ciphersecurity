@@ -63,7 +63,7 @@ def generate_homophonic_table(key):
     # print(json.dumps(mappings, indent=2))
     return mappings
 
-def encode_black_chamber(text, key):
+def encode_homophonic(text, key):
     cipher = ''
     mappings = generate_homophonic_table(key)
     for character in text:
@@ -73,7 +73,7 @@ def encode_black_chamber(text, key):
     cipher = cipher.strip()
     return cipher
 
-def decode_black_chamber(cipher, key):
+def decode_homophonic(cipher, key):
     text = ''
     mappings = generate_homophonic_table(key)
     for code in cipher.split():
