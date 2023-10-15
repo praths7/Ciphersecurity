@@ -31,6 +31,7 @@ def base64_homophonic_table(key):
             row.append(table[header][index])
         values.append(row)
     df = pd.DataFrame(np.array(values), index=list(key), columns=columns)
+    df.reset_index(inplace=True)
     df_styled = df.style.background_gradient()
     filepath = './temp/table.png'
     dfi.export(df_styled, filepath, max_cols=-1)
@@ -41,7 +42,6 @@ def base64_homophonic_table(key):
     return dataurl
 
 def generate_homophonic_table(key):
-    key = key.lower()
     mappings = {}
     alphabet = list(string.printable)
     for character in alphabet:

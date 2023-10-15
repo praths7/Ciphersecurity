@@ -14,7 +14,7 @@ export const HomePage = () => {
 	return (
 		<PageContainer>
 			<HomeCard>
-				<div className="mb-5">
+				<div className="mb-4">
 					<Logo src={cipherIcon}/>
 					<h1 className='mt-4'>
 						Welcome to Cypher It!
