@@ -32,7 +32,7 @@ def base64_homophonic_table(key):
         values.append(row)
     df = pd.DataFrame(np.array(values), index=list(key), columns=columns)
     df_styled = df.style.background_gradient()
-    filepath = './table.png'
+    filepath = './temp/table.png'
     dfi.export(df_styled, filepath, max_cols=-1)
     binary_fc = open(filepath, 'rb').read()
     base64_utf8_str = base64.b64encode(binary_fc).decode('utf-8')
