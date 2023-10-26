@@ -3,29 +3,31 @@ import { HomeCard, Logo, PageContainer } from "../../common/styles";
 import { ENCRYPT, DECRYPT } from "../../constants/operationConstants";
 import { useState, useEffect } from 'react';
 import { EncryptDecryptSection } from "../../common/encryptDecryptSection";
-import { encodeTextCaesar, decryptTextCaesar } from '../../endpoints/caesarEndpoints';
+import { encodeTextCaesar, decodeTextCaesar } from '../../endpoints/caesarEndpoints';
 import emperor from '../../images/emperor.png';
 
 export const CaesarCipherPage = () => {
   const [action, setAction] = useState(null);
   const [inputText, setInputText] = useState('');
+  const [cipherKey, setCipherKey] = useState(0);
   const [cipherValue, setCipherValue] = useState('');
 
   useEffect(() => {
     if (action === ENCRYPT) {
-      encodeTextCaesar(inputText)
+      encodeTextCaesar(inputText, cipherKey)
         .then((data) => {
           setCipherValue(data.data);
         });
     } else if (action === DECRYPT) {
-      decryptTextCaesar(inputText)
+      decodeTextCaesar(inputText, cipherKey)
         .then((data) => {
           setCipherValue(data.data);
         });
     }
-  }, [inputText]);
+  }, [inputText, cipherKey]);
 
   useEffect(() => {
+    setCipherKey(0);
     setCipherValue('');
   }, [action]);
 
@@ -61,6 +63,8 @@ export const CaesarCipherPage = () => {
           setAction={setAction}
           cipherValue={cipherValue}
           setInputText={setInputText}
+          setCipherKey={setCipherKey}
+          isCaesar
         />
       </HomeCard>
     </PageContainer>

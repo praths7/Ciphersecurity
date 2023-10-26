@@ -3,7 +3,7 @@ import { Button, InputGroup, Modal } from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
 import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
-import { HomeButton, MappingTable } from "./components";
+import { HomeButton, MappingTable, ShiftInput } from "./components";
 import {
   getBase64HomophonicMapping,
   getHomophonicMapping
@@ -18,6 +18,7 @@ export const EncryptDecryptSection = ({
   setCipherKey,
   cipherValue,
   setInputText,
+  isCaesar = false,
   isHomophonic = false,
   isMonoalphabetic = false,
   isVigenere = false
@@ -201,6 +202,7 @@ export const EncryptDecryptSection = ({
             </div>
           }
           { mapping && <MappingTable mapping={mapping} cipherKey={cipherKey}/> }
+          { isCaesar && <ShiftInput setCipherKey={setCipherKey} /> }
           <p>
             { action === ENCRYPT ? "Encoded" : action === DECRYPT && 'Decoded' }
             &nbsp;Text:

@@ -1,4 +1,4 @@
-export async function encodeTextCaesar(text) {
+export async function encodeTextCaesar(text, cipherKey) {
 	return fetch('http://127.0.0.1:5000//encode/caesar-cipher', {
 			method: 'POST',
 			mode: 'cors',
@@ -8,6 +8,7 @@ export async function encodeTextCaesar(text) {
 			},
 			body: JSON.stringify({
 				text: text,
+				cipherKey: cipherKey
 			})
 	}).then((response) => {
 		if (response.ok) { return response.json(); }
@@ -15,7 +16,7 @@ export async function encodeTextCaesar(text) {
 	});
 }
 
-export async function decryptTextCaesar(text) {
+export async function decodeTextCaesar(text, cipherKey) {
 	return fetch('http://127.0.0.1:5000//decode/caesar-cipher', {
 		method: 'POST',
 		mode: 'cors',
@@ -25,6 +26,7 @@ export async function decryptTextCaesar(text) {
 		},
 		body: JSON.stringify({
 			text: text,
+			cipherKey: cipherKey
 		})
 	}).then((response) => {
 		if (response.ok) { return response.json(); }

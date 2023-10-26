@@ -37,7 +37,7 @@ APP.register_error_handler(Exception, defaultHandler)
 def encode_caesar_ciper():
     payload = request.get_json()
     return dumps({
-        'data': encode_caesar(payload['text'])
+        'data': encode_caesar(payload['text'], int(payload['cipherKey']))
     })
 
 # /decode/caesar-cipher
@@ -46,7 +46,7 @@ def encode_caesar_ciper():
 def decode_caesar_ciper():
     payload = request.get_json()
     return dumps({
-        'data': decode_caesar(payload['text'])
+        'data': decode_caesar(payload['text'], int(payload['cipherKey']))
     })
 
 # /encode/monoalphabetic-cipher

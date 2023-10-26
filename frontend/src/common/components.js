@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
+import {Button, FormLabel, InputGroup, Table} from "react-bootstrap";
 
 export const HomeButton = () => {
   const navigateTo = useNavigate();
@@ -15,6 +15,32 @@ export const HomeButton = () => {
       { 'Home Page' }
     </Button>
   )
+}
+
+export const ShiftInput = ({ setCipherKey }) => {
+  const [value, setValue] = useState(0);
+  return (
+    <InputGroup
+      className="mt-4 mb-3"
+    >
+      <FormLabel>
+        Selected Shift Value:&nbsp;
+        { value }
+      </FormLabel>
+      <input
+        type="range"
+        className="form-range"
+        min={0}
+        max={99}
+        value={value}
+        onChange={(e) => {
+          const shift = e.target.value;
+          setValue(shift);
+          setCipherKey(shift);
+        }}
+      />
+    </InputGroup>
+  );
 }
 
 export const MappingTable = ({ mapping, cipherKey }) => {

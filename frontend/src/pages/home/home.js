@@ -4,7 +4,8 @@ import { Button } from 'react-bootstrap';
 import {
 	CAESAR_CIPHER,
 	HOMOPHONIC_CIPHER,
-	MONOALPHABETIC_CIPHER, VIGENERE_CIPHER
+	MONOALPHABETIC_CIPHER,
+	VIGENERE_CIPHER
 } from '../../constants/routeConstants';
 import { PageContainer, HomeCard, Logo } from '../../common/styles';
 import cipherIcon from '../../images/cipher.png';
