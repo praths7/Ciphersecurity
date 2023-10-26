@@ -1,1 +1,2 @@
 export const NUMBER_OF_CHARACTERS = 26;
+export const NUMBER_OF_PRINTABLE_CHARACTERS = 100;

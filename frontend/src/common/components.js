@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {Button, FormLabel, InputGroup, Table} from "react-bootstrap";
+import {NUMBER_OF_PRINTABLE_CHARACTERS} from "../constants/generalConstants";
 
 export const HomeButton = () => {
   const navigateTo = useNavigate();
@@ -31,7 +32,7 @@ export const ShiftInput = ({ setCipherKey }) => {
         type="range"
         className="form-range"
         min={0}
-        max={99}
+        max={NUMBER_OF_PRINTABLE_CHARACTERS - 1}
         value={value}
         onChange={(e) => {
           const shift = e.target.value;
