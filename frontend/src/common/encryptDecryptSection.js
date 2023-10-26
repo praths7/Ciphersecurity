@@ -4,8 +4,12 @@ import InputGroupText from "react-bootstrap/InputGroupText";
 import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
 import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
 import { HomeButton, MappingTable } from "./components";
-import {getBase64HomophonicMapping, getHomophonicMapping} from "../endpoints/homophonicEndpoints";
+import {
+  getBase64HomophonicMapping,
+  getHomophonicMapping
+} from "../endpoints/homophonicEndpoints";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
+import { getBase64VigenereMapping } from "../endpoints/vigenereEndpoints";
 
 export const EncryptDecryptSection = ({
   action,
@@ -14,7 +18,9 @@ export const EncryptDecryptSection = ({
   setCipherKey,
   cipherValue,
   setInputText,
-  isHomophonic = false
+  isHomophonic = false,
+  isMonoalphabetic = false,
+  isVigenere = false
 }) => {
   const [mapping, setMapping] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -105,7 +111,7 @@ export const EncryptDecryptSection = ({
                 </InputGroupText>
                 <input
                   type="text"
-                  className={`p-2 form-control ${!isHomophonic && !isCipherValid && 'is-invalid'}`}
+                  className={`p-2 form-control ${isMonoalphabetic && !isCipherValid && 'is-invalid'}`}
                   value={cipherKey}
                   onChange={(e) => {
                     setCipherKey(e.target.value);
@@ -116,7 +122,7 @@ export const EncryptDecryptSection = ({
                   required
                 />
                 {
-                  !isHomophonic && !isCipherValid &&
+                  isMonoalphabetic && !isCipherValid &&
                   <div
                     className="invalid-feedback"
                   >
@@ -125,7 +131,7 @@ export const EncryptDecryptSection = ({
                 }
               </InputGroup>
               {
-                !isHomophonic && action === ENCRYPT &&
+                isMonoalphabetic && action === ENCRYPT &&
                 <div className="text-center">
                   <Button
                     variant="outline-dark"
@@ -142,34 +148,43 @@ export const EncryptDecryptSection = ({
                 </div>
               }
               {
-                isHomophonic && cipherKey.length > 0 &&
+                (isHomophonic || isVigenere) && cipherKey.length > 0 &&
                 <div className="text-center">
-                  <Button
-                    variant="outline-dark"
-                    className="mb-3 mx-2"
-                    onClick={() => {
-                      if (mapping) {
-                        setMapping(null);
-                        setFetchMapping(0);
-                      } else {
-                        setFetchMapping(fetchMapping => fetchMapping + 1);
-                      }
-                    }}
-                  >
-                    { !mapping ? 'Show Mapping' : 'Hide Mapping' }
-                  </Button>
+                  {
+                    isHomophonic && <Button
+                      variant="outline-dark"
+                      className="mb-3 mx-2"
+                      onClick={() => {
+                        if (mapping) {
+                          setMapping(null);
+                          setFetchMapping(0);
+                        } else {
+                          setFetchMapping(fetchMapping => fetchMapping + 1);
+                        }
+                      }}
+                    >
+                      { !mapping ? 'Show Mapping' : 'Hide Mapping' }
+                    </Button>
+                  }
                   <Button
                     variant="outline-dark"
                     role="status"
                     className="mb-3"
                     onClick={() => {
                       setLoading(true);
-                      getBase64HomophonicMapping(cipherKey)
+                      (
+                        isHomophonic ? getBase64HomophonicMapping(cipherKey) :
+                          isVigenere && getBase64VigenereMapping(cipherKey)
+                      )
                         .then((data) => {
                           const base64Value = data.data;
                           const downloadLink = document.createElement("a");
                           downloadLink.href = base64Value;
-                          downloadLink.download = 'FullHomophonicMapping.png';
+                          if (isHomophonic) {
+                            downloadLink.download = 'FullHomophonicMapping.png';
+                          } else if (isVigenere) {
+                            downloadLink.download = 'FullVigenereMapping.png';
+                          }
                           downloadLink.click();
                         })
                         .then(() => {

@@ -1,4 +1,7 @@
+import sys
 import string
+sys.path.append("..")
+from common.base64_table import generate_base64_mapping
 
 def generate_vigenere_mapping(key):
     mapping = {}
@@ -16,6 +19,16 @@ def generate_vigenere_mapping(key):
                 aindex += 1
                 counter += 1
     return mapping
+
+def base64_vigenere_table(key):
+    table = generate_vigenere_mapping(key)
+    values = []
+    columns = [*range(0, len(string.printable), 1)]
+    meta_key = ''
+    for header in table:
+        values.append(table[header])
+        meta_key += header
+    return generate_base64_mapping(values, columns, meta_key)
 
 def vigenere_keystream(text, key):
     keystream = ''
@@ -44,3 +57,5 @@ def decode_vigenere(cipher, key):
         cindex = alphabet.index(cipher_symbol)
         text += mapping[key_anchor][cindex]
     return text
+
+base64_vigenere_table('key')

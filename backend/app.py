@@ -6,6 +6,7 @@ from flask_cors import CORS, cross_origin
 from services.caesar import encode_caesar, decode_caesar
 from services.monoalphabetic import encode_monoalphabetic, decode_monoalphabetic, generatem_key
 from services.homophonic import encode_homophonic, decode_homophonic, filtered_homophonic_table, base64_homophonic_table
+from services.vigenere import encode_vigenere, decode_vigenere, base64_vigenere_table
 
 def defaultHandler(err):
     response = err.get_response()
@@ -107,4 +108,29 @@ def generate_base64_homophonic_mapping():
     payload = request.get_json()
     return dumps({
         'data': base64_homophonic_table(payload['cipherKey'])
+    })
+
+@APP.route('/encode/vigenere-cipher', methods=['POST'])
+@cross_origin()
+def encode_vigenere_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': encode_vigenere(payload['text'], payload['cipherKey'])
+    })
+
+# /decode/homophonic-cipher
+@APP.route('/decode/vigenere-cipher', methods=['POST'])
+@cross_origin()
+def decode_vignere_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': decode_vigenere(payload['text'], payload['cipherKey'])
+    })
+
+@APP.route('/generate/base64-vigenere-mapping', methods=['POST'])
+@cross_origin()
+def generate_base64_vigenere_mapping():
+    payload = request.get_json()
+    return dumps({
+        'data': base64_vigenere_table(payload['cipherKey'])
     })

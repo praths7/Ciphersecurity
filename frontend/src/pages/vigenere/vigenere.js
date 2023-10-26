@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Logo, HomeCard, PageContainer } from "../../common/styles";
 import { DECRYPT, ENCRYPT } from "../../constants/operationConstants";
-import { NUMBER_OF_CHARACTERS } from "../../constants/generalConstants";
 import { EncryptDecryptSection } from "../../common/encryptDecryptSection";
-import abc from "../../images/abc.png";
 import {
-  encodeTextMonoalphabetic,
-  decodeTextMonoalphabetic
-} from "../../endpoints/monoalphabeticEndpoints";
+  decodeTextVigenere,
+  encodeTextVigenere
+} from "../../endpoints/vigenereEndpoints";
+import gate from "../../images/gate.png";
 
-export const MonoalphabeticCipherPage = () => {
+export const VigenereCipherPage = () => {
   const [action, setAction] = useState(null);
   const [inputText, setInputText] = useState('');
   const [cipherKey, setCipherKey] = useState('');
   const [cipherValue, setCipherValue] = useState('');
 
   useEffect(() => {
-    if (cipherKey.length === NUMBER_OF_CHARACTERS) {
+    if (cipherKey.length > 0) {
       if (action === ENCRYPT) {
-        encodeTextMonoalphabetic(inputText, cipherKey)
+        encodeTextVigenere(inputText, cipherKey)
           .then((data) => {
             setCipherValue(data.data);
           });
       } else if (action === DECRYPT) {
-        decodeTextMonoalphabetic(inputText, cipherKey)
+        decodeTextVigenere(inputText, cipherKey)
           .then((data) => {
             setCipherValue(data.data);
           });
@@ -32,6 +31,7 @@ export const MonoalphabeticCipherPage = () => {
   }, [inputText, cipherKey]);
 
   useEffect(() => {
+    setCipherKey('');
     setCipherValue('');
   }, [action]);
 
@@ -39,26 +39,26 @@ export const MonoalphabeticCipherPage = () => {
     <PageContainer>
       <HomeCard>
         <div className="mb-4">
-          <Logo src={abc}/>
+          <Logo src={gate}/>
           <h1
             className="mt-4"
           >
-            Try the Monoalphabetic Cipher!
+            Cipher with Vigenère!
           </h1>
         </div>
         <div className="mb-4">
           <h5 className='mb-2'>
-            What does the Monoalphabetic Cipher do?
+            How does the Vigenère Cipher work?
           </h5>
           <p className="mb-4" style={{ 'width': '100%', 'margin': 'auto' }}>
-            In monoalphabetic, each alphabet in plain text can be replaced by
-            any other alphabet except the original alphabet. That is, A can be
-            replaced by any other alphabet from B to Z. B can be replaced by A or C to Z.
-            C can be replaced by A, B, and D to Z, etc.
+            The Vigenere Cipher is a polyalphabetic substitution cipher, which means that it uses multiple
+            cipher alphabets to encrypt the plaintext. The Vigenère Cipher operates by using a keyword, typically
+            a word or phrase, as the basis for encryption. The keyword is repeated to match the length of the plaintext
+            message.
           </p>
           <figcaption className="blockquote-footer">
             <cite title="Source Title">
-              Educba.com
+              Intellipaat.com
             </cite>
           </figcaption>
         </div>
@@ -69,7 +69,7 @@ export const MonoalphabeticCipherPage = () => {
           setCipherKey={setCipherKey}
           cipherValue={cipherValue}
           setInputText={setInputText}
-          isMonoalphabetic
+          isVigenere
         />
       </HomeCard>
     </PageContainer>
