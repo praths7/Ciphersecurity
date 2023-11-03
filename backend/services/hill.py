@@ -34,7 +34,6 @@ def check_key_inv(key):
     # find modulus of inverse number
     return find_mod_inv(k_det, len(alphabet))
 
-
 def encode_hill(text, key):
     ekey = []
     for letter in key:
@@ -104,14 +103,6 @@ def decode_hill(cipher, key):
                 etext.append(buffer)
                 buffer = []
             i += 1
-        ignore = 0
-        if (len(buffer) > 0):
-            i = len(buffer)
-            while (i < x_dim):
-                buffer.append(PADDING)
-                i += 1
-                ignore += 1
-            etext.append(buffer)
         text = ''
         for block in etext:
             candidate = np.mat(block).reshape(-1, x_dim)
@@ -119,11 +110,11 @@ def decode_hill(cipher, key):
             anchors = np.squeeze(np.asarray(product))
             for code in anchors:
                 # print(code)
-                text += alphabet[int(code) - 1]
-
+                if (int(code) != PADDING):
+                    text += alphabet[int(code) - 1]
         answer[key] = text
     return answer
 
-#key = generate_hill_key()
-#cipher = encode_hill('ilovecake', key)
-#print(decode_hill(cipher, key))
+key = generate_hill_key()
+cipher = encode_hill('mukabalaa', key)
+print(decode_hill(cipher, key))
