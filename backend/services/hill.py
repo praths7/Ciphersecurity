@@ -1,15 +1,39 @@
-import math
 import string
+import random
 import numpy as np
 
-PADDING = 25
-alphabet = list(string.ascii_lowercase)
+PADDING = 99
+alphabet = list(string.printable)
+
+def generate_hill_key():
+    return random.choice([
+        'kata',
+        'olpa',
+        'opla',
+        'xyia',
+        'ghua',
+        'KOLA',
+        'arya',
+        'oplu',
+        'oplc'
+    ])
 
 def find_mod_inv(a, m):
     for x in range(1, m):
         if (a % m) * (x % m) % m == 1:
             return x
     return -1
+
+def check_key_inv(key):
+    ekey = []
+    for letter in key:
+        ekey.append(alphabet.index(letter) + 1)
+    key_matrix = np.mat(ekey).reshape(-1, 2).T
+    # find modular inverse of a matrix
+    k_det = int(np.rint(abs(np.linalg.det(key_matrix))))
+    # find modulus of inverse number
+    return find_mod_inv(k_det, len(alphabet))
+
 
 def encode_hill(text, key):
     ekey = []
@@ -41,10 +65,6 @@ def encode_hill(text, key):
         anchors = np.squeeze(np.asarray(product))
         for a in anchors:
             encoding += alphabet[a - 1]
-    """
-    if (ignore > 0):
-        return encoding[:-ignore]
-    """
     return encoding
 
 def decode_hill(cipher, key):
@@ -62,9 +82,6 @@ def decode_hill(cipher, key):
     # find modulus of inverse number
     mod_inv = find_mod_inv(k_det, len(alphabet))
     inv_det = abs(mod_inv - len(alphabet))
-    print(mod_inv, k_det, inv_det)
-
-    print(key_matrix)
 
     converted = np.squeeze(np.asarray(key_matrix))
     a = converted[0][0]
@@ -75,11 +92,9 @@ def decode_hill(cipher, key):
     converted[0][1] = -converted[0][1] + len(alphabet)
     converted[1][0] = -converted[1][0] + len(alphabet)
 
-    print(converted)
-
-    for cus_det in [mod_inv, inv_det]:
+    answer = {}
+    for key, cus_det in enumerate([mod_inv, inv_det]):
         km_inv = (np.mat(converted) * cus_det) % len(alphabet)
-
         etext = []
         buffer = []
         i = 1
@@ -97,7 +112,6 @@ def decode_hill(cipher, key):
                 i += 1
                 ignore += 1
             etext.append(buffer)
-
         text = ''
         for block in etext:
             candidate = np.mat(block).reshape(-1, x_dim)
@@ -107,9 +121,9 @@ def decode_hill(cipher, key):
                 # print(code)
                 text += alphabet[int(code) - 1]
 
-        print(text)
+        answer[key] = text
+    return answer
 
-for KEY in ['kata', 'wyaj', 'olpa', 'opla', 'xyia', 'ghua']:
-    cipher = encode_hill('ilovecake', KEY)
-    #print(cipher)
-    decode_hill(cipher, KEY)
+#key = generate_hill_key()
+#cipher = encode_hill('ilovecake', key)
+#print(decode_hill(cipher, key))

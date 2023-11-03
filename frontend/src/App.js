@@ -4,7 +4,8 @@ import {
   CAESAR_CIPHER,
   MONOALPHABETIC_CIPHER,
   HOMOPHONIC_CIPHER,
-  VIGENERE_CIPHER
+  VIGENERE_CIPHER,
+  HILL_CIPHER
 } from './constants/routeConstants';
 import { HomePage } from './pages/home/home';
 import { CaesarCipherPage } from './pages/caesar/caesar';
@@ -12,6 +13,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MonoalphabeticCipherPage } from "./pages/monoalphabetic/monoalphabetic";
 import { HomophonicCipherPage } from "./pages/homophonic/homophonic";
 import { VigenereCipherPage } from "./pages/vigenere/vigenere";
+import { HillCipherPage } from "./pages/hill/hill";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route path={MONOALPHABETIC_CIPHER} element={<MonoalphabeticCipherPage/>}/>
         <Route path={HOMOPHONIC_CIPHER} element={<HomophonicCipherPage/>}/>
         <Route path={VIGENERE_CIPHER} element={<VigenereCipherPage/>}/>
+        <Route path={HILL_CIPHER} element={<HillCipherPage/>}/>
       </Routes>
     </BrowserRouter>
   );

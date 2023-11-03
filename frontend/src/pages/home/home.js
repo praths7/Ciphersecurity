@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import {
-	CAESAR_CIPHER,
+	CAESAR_CIPHER, HILL_CIPHER,
 	HOMOPHONIC_CIPHER,
 	MONOALPHABETIC_CIPHER,
 	VIGENERE_CIPHER
@@ -59,12 +59,21 @@ export const HomePage = () => {
 				</Button>
 				<Button
 					variant='outline-dark'
-					className="p-2"
+					className="mb-3 p-2"
 					onClick={() => {
 						navigateTo(VIGENERE_CIPHER);
 					}}
 				>
 					Vigenere Cipher
+				</Button>
+				<Button
+					variant='outline-dark'
+					className="p-2"
+					onClick={() => {
+						navigateTo(HILL_CIPHER);
+					}}
+				>
+					Hill Cipher
 				</Button>
 			</HomeCard>
 		</PageContainer>

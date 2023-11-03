@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, InputGroup, Modal } from "react-bootstrap";
 import InputGroupText from "react-bootstrap/InputGroupText";
-import { DECRYPT, ENCRYPT } from "../constants/operationConstants";
+import {DECRYPT, ENCRYPT, SUCCESS} from "../constants/operationConstants";
 import { NUMBER_OF_CHARACTERS } from "../constants/generalConstants";
 import { HomeButton, MappingTable, ShiftInput } from "./components";
 import {
@@ -10,6 +10,7 @@ import {
 } from "../endpoints/homophonicEndpoints";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
 import { getBase64VigenereMapping } from "../endpoints/vigenereEndpoints";
+import {generateHillKey} from "../endpoints/hillEndpoints";
 
 export const EncryptDecryptSection = ({
   action,
@@ -18,15 +19,17 @@ export const EncryptDecryptSection = ({
   setCipherKey,
   cipherValue,
   setInputText,
+  hillStatus = '',
   isCaesar = false,
   isHomophonic = false,
   isMonoalphabetic = false,
-  isVigenere = false
+  isVigenere = false,
+  isHill = false
 }) => {
   const [mapping, setMapping] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fetchMapping, setFetchMapping] = useState(0);
-  const isCipherValid = cipherKey?.length === NUMBER_OF_CHARACTERS;
+  const is26Cipher = cipherKey?.length === NUMBER_OF_CHARACTERS;
 
   useEffect(() => {
     if (fetchMapping !== 0) {
@@ -112,7 +115,7 @@ export const EncryptDecryptSection = ({
                 </InputGroupText>
                 <input
                   type="text"
-                  className={`p-2 form-control ${isMonoalphabetic && !isCipherValid && 'is-invalid'}`}
+                  className={`p-2 form-control ${(isHill && hillStatus === SUCCESS) && 'is-valid'} ${((isMonoalphabetic && !is26Cipher) || (isHill && hillStatus !== SUCCESS)) && 'is-invalid'}`}
                   value={cipherKey}
                   onChange={(e) => {
                     setCipherKey(e.target.value);
@@ -123,25 +126,45 @@ export const EncryptDecryptSection = ({
                   required
                 />
                 {
-                  isMonoalphabetic && !isCipherValid &&
+                  isMonoalphabetic && !is26Cipher &&
                   <div
                     className="invalid-feedback"
                   >
                     Please enter a 26 character mapping scheme (key).
                   </div>
                 }
+                {
+                  isHill && ((hillStatus !== SUCCESS) ?
+                  <div
+                    className="invalid-feedback"
+                  >
+                    { hillStatus }
+                  </div> :
+                  <div
+                    className="valid-feedback"
+                  >
+                    Key compatible.
+                  </div>)
+                }
               </InputGroup>
               {
-                isMonoalphabetic && action === ENCRYPT &&
+                (isMonoalphabetic || isHill) && action === ENCRYPT &&
                 <div className="text-center">
                   <Button
                     variant="outline-dark"
                     className="mb-3"
                     onClick={() => {
-                      generateMonoalphabeticKey()
-                        .then((data) => {
-                          setCipherKey(data.data);
-                        });
+                      if (isMonoalphabetic) {
+                        generateMonoalphabeticKey()
+                          .then((data) => {
+                            setCipherKey(data.data);
+                          });
+                      } else if (isHill) {
+                        generateHillKey()
+                          .then((data) => {
+                            setCipherKey(data.data);
+                          });
+                      }
                     }}
                   >
                     Generate Key
