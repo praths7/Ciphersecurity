@@ -14,8 +14,7 @@ def generate_hill_key():
         'ghua',
         'KOLA',
         'arya',
-        'oplu',
-        'oplc'
+        'oplu'
     ])
 
 def find_mod_inv(a, m):
@@ -112,6 +111,6 @@ def decode_hill(cipher, key):
         answer[key] = text
     return answer
 
-key = generate_hill_key()
-cipher = encode_hill('mukabalaa', key)
-print(decode_hill(cipher, key))
+#key = generate_hill_key()
+#cipher = encode_hill('mukabalaa', key)
+#print(decode_hill(cipher, key))
