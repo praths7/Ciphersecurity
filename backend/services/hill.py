@@ -81,13 +81,11 @@ def decode_hill(cipher, key):
     # find modulus of inverse number
     mod_inv = find_mod_inv(k_det, len(alphabet))
     inv_det = abs(mod_inv - len(alphabet))
-
     converted = np.squeeze(np.asarray(key_matrix))
     a = converted[0][0]
     b = converted[1][1]
     converted[0][0] = b
     converted[1][1] = a
-
     converted[0][1] = -converted[0][1] + len(alphabet)
     converted[1][0] = -converted[1][0] + len(alphabet)
 
@@ -109,7 +107,6 @@ def decode_hill(cipher, key):
             product = np.matmul(candidate, km_inv) % len(alphabet)
             anchors = np.squeeze(np.asarray(product))
             for code in anchors:
-                # print(code)
                 if (int(code) != PADDING):
                     text += alphabet[int(code) - 1]
         answer[key] = text
