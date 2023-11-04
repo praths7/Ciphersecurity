@@ -56,11 +56,6 @@ export const RgridCipherPage = () => {
             where the placements are randomised based on key. The final encryption output
             is shuffled which is reversible through the law of permutation symmetry.
           </p>
-          <figcaption className="blockquote-footer">
-            <cite title="Source Title">
-              Me
-            </cite>
-          </figcaption>
         </div>
         <EncryptDecryptSection
           action={action}

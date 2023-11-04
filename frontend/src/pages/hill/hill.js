@@ -69,11 +69,6 @@ export const HillCipherPage = () => {
             keys can work with the cipher due to its unique linear algebraic qualities.
             Keep trying a key until the input field accepts it, or use our uniquely generated key!
           </p>
-          <figcaption className="blockquote-footer">
-            <cite title="Source Title">
-              Me
-            </cite>
-          </figcaption>
         </div>
         <EncryptDecryptSection
           action={action}

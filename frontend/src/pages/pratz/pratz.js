@@ -57,11 +57,6 @@ export const PratzCipherPage = () => {
             weighted linear summation of characters. The encoding is finally shuffled according to
             seed, which is reversible through the law of permutation symmetry.
           </p>
-          <figcaption className="blockquote-footer">
-            <cite title="Source Title">
-              Me
-            </cite>
-          </figcaption>
         </div>
         <EncryptDecryptSection
           action={action}
