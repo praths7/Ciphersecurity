@@ -65,9 +65,3 @@ def decode_pratz(cipher, key):
         oi = mirror.index(character)
         text += alphabet[oi]
     return text
-
-#KEY = 'lombalomba'
-#cipher = encode_pratz('hi dear, nice to meet you!', KEY)
-#print(cipher)
-#text = decode_pratz(cipher, KEY)
-#print(text)
