@@ -14,7 +14,8 @@ def generate_hill_key():
         'ghua',
         'KOLA',
         'arya',
-        'oplu'
+        'oplu',
+        'op;a'
     ])
 
 def find_mod_inv(a, m):
