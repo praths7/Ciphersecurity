@@ -85,7 +85,6 @@ export const EncryptDecryptSection = ({
           <p>
             Please enter the text you want to&nbsp;
             { action === ENCRYPT ? "encode" : action === DECRYPT && 'decode' }
-            , and see the magic!
           </p>
           <InputGroup className="mb-3">
             <InputGroupText>
@@ -102,7 +101,7 @@ export const EncryptDecryptSection = ({
             cipherKey?.length >= 0 &&
             <div>
               <p>
-                Also enter&nbsp;
+                and also enter&nbsp;
                 { action === ENCRYPT ? "encoding" : action === DECRYPT && 'decoding' }
                 &nbsp;key.&nbsp;
                 { (isMonoalphabetic || isHill) && action === ENCRYPT && "Or alternatively, generate one." }
