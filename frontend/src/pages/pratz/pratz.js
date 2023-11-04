@@ -53,7 +53,7 @@ export const PratzCipherPage = () => {
           </h5>
           <p className="mb-4" style={{ 'width': '100%', 'margin': 'auto' }}>
             My cipher operates on randomisation based on seeding. Essentially, the key act as a seed
-            for randomising the alphabet dictionary. The seed is calculated from the key through a
+            for randomising the alphabet dictionary. The key generates the seed through a
             weighted linear summation of characters. The encoding is finally shuffled according to
             seed, which is reversible through the law of permutation symmetry.
           </p>
