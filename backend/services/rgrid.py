@@ -2,9 +2,9 @@ import copy
 import random
 import string
 
-NUMBER_OF_COLUMNS = 5
 RELATION = '$'
 SEPERATOR = '?'
+NUMBER_OF_COLUMNS = 5
 
 alphabet = list(string.printable)[:-5]
 
