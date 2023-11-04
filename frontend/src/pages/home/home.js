@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import {
 	CAESAR_CIPHER, HILL_CIPHER,
 	HOMOPHONIC_CIPHER,
-	MONOALPHABETIC_CIPHER,
+	MONOALPHABETIC_CIPHER, PRATZ_CIPHER,
 	VIGENERE_CIPHER
 } from '../../constants/routeConstants';
 import { PageContainer, HomeCard, Logo } from '../../common/styles';
@@ -68,12 +68,21 @@ export const HomePage = () => {
 				</Button>
 				<Button
 					variant='outline-dark'
-					className="p-2"
+					className="mb-3 p-2"
 					onClick={() => {
 						navigateTo(HILL_CIPHER);
 					}}
 				>
 					Hill Cipher
+				</Button>
+				<Button
+					variant='outline-dark'
+					className="p-2"
+					onClick={() => {
+						navigateTo(PRATZ_CIPHER);
+					}}
+				>
+					Pratz Cipher
 				</Button>
 			</HomeCard>
 		</PageContainer>

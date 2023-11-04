@@ -8,6 +8,7 @@ from services.monoalphabetic import encode_monoalphabetic, decode_monoalphabetic
 from services.homophonic import encode_homophonic, decode_homophonic, filtered_homophonic_table, base64_homophonic_table
 from services.vigenere import encode_vigenere, decode_vigenere, base64_vigenere_table
 from services.hill import encode_hill, decode_hill, check_key_inv, generate_hill_key
+from services.pratz import encode_pratz, decode_pratz
 
 def defaultHandler(err):
     response = err.get_response()
@@ -164,4 +165,20 @@ def check_mod_inverse():
     payload = request.get_json()
     return dumps({
         'data': check_key_inv(payload['value'])
+    })
+
+@APP.route('/encode/pratz-cipher', methods=['POST'])
+@cross_origin()
+def encode_pratz_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': encode_pratz(payload['text'], payload['cipherKey'])
+    })
+
+@APP.route('/decode/pratz-cipher', methods=['POST'])
+@cross_origin()
+def decode_pratz_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': decode_pratz(payload['text'], payload['cipherKey'])
     })

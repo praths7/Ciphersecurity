@@ -66,8 +66,8 @@ def decode_pratz(cipher, key):
         text += alphabet[oi]
     return text
 
-KEY = 'mogambo'
-cipher = encode_pratz('hi dear, nice to meet you!', KEY)
-print(cipher)
-text = decode_pratz(cipher, KEY)
-print(text)
+#KEY = 'lombalomba'
+#cipher = encode_pratz('hi dear, nice to meet you!', KEY)
+#print(cipher)
+#text = decode_pratz(cipher, KEY)
+#print(text)
