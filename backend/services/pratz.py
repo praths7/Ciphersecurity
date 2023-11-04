@@ -5,11 +5,22 @@ import functools
 
 alphabet = list(string.printable)[:-5]
 
+"""
+[Explanation]
+
+For a given list, shuffle list w.r.t seed.
+"""
 def seed_shuffle(list, seed):
     random.seed(seed)
     random.shuffle(list)
     return list
 
+"""
+[Explanation]
+
+For a given shuffled list, execute un-shuffling through
+provided seed. Apply mathematical law of permutation symmetry.
+"""
 def unshuffle_list(shuffled_list, seed):
     n = len(shuffled_list)
     permutation = [i for i in range(1, n + 1)]
@@ -18,6 +29,12 @@ def unshuffle_list(shuffled_list, seed):
     zipped.sort(key=lambda x: x[1])
     return [a for (a, b) in zipped]
 
+"""
+[Explanation]
+
+For given key, calculate numerical equivalence through weighted
+sum aggregation of characters.
+"""
 def numerise_key(key):
     length = len(key)
     value = 0
@@ -26,6 +43,15 @@ def numerise_key(key):
         length -= 1
     return value
 
+"""
+[Explanation]
+
+Convert key into numerical seed via a series of transformations:
+1. Weighted sum aggregation of key characters.
+2. Add decrementing seed value into itself for further randomisation.
+3. Shuffle the resultant key according to rotation key.
+4. Rejoin key and convert into integer.
+"""
 def generate_final_key(key):
     seed = numerise_key(key)
     rotate = copy.copy(seed)
@@ -38,12 +64,23 @@ def generate_final_key(key):
     final_key = int(functools.reduce(lambda x, y : x + y, str_key))
     return final_key
 
+"""
+[Explanation]
+
+Return the printable alphabet dictionary shuffled according to seed.
+"""
 def generate_mirror(key):
     final_key = generate_final_key(key)
     mirror = copy.copy(alphabet)
     random.Random(final_key).shuffle(mirror)
     return mirror
 
+"""
+[Explanation]
+
+Encoding the given text using key. Randomise the encryption via
+key seed to deter structural referencing.
+"""
 def encode_pratz(text, key):
     mirror = generate_mirror(key)
     encoding = ''
@@ -55,6 +92,12 @@ def encode_pratz(text, key):
     rotated = seed_shuffle(split_encoding, final_key)
     return str(functools.reduce(lambda x, y : x + y, rotated))
 
+"""
+[Explanation]
+
+Decode the given text using key. First reverse the shuffled
+encryption via key seed through law of permutation symmetry.
+"""
 def decode_pratz(cipher, key):
     final_key = generate_final_key(key)
     split_cipher = [s for s in cipher]
