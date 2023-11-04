@@ -58,7 +58,7 @@ export const RgridCipherPage = () => {
           </p>
           <figcaption className="blockquote-footer">
             <cite title="Source Title">
-              Prathamesh J
+              Me
             </cite>
           </figcaption>
         </div>

@@ -68,8 +68,8 @@ def decode_rgrid(cipher, key):
         text += rgrid[int(xy[0])][int(xy[1])]
     return text
 
-KEY = 'randomkey'
-cipher = encode_rgrid('hi my name is prathamesh!!!', KEY)
-print(cipher)
-text = decode_rgrid(cipher, KEY)
-print(text)
+#KEY = 'randomkey'
+#cipher = encode_rgrid('hi my name is prathamesh!!!', KEY)
+#print(cipher)
+#text = decode_rgrid(cipher, KEY)
+#print(text)
