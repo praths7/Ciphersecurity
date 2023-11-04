@@ -11,7 +11,7 @@ import {
 	VIGENERE_CIPHER
 } from '../../constants/routeConstants';
 import { PageContainer, HomeCard, Logo } from '../../common/styles';
-import cipherIcon from '../../images/cyber-security.png';
+import hacker from '../../images/hacking.png';
 
 export const HomePage = () => {
 	const navigateTo = useNavigate();
@@ -19,18 +19,18 @@ export const HomePage = () => {
 		<PageContainer>
 			<HomeCard>
 				<div className="mb-4">
-					<Logo src={cipherIcon}/>
+					<Logo src={hacker}/>
 					<h1 className='mt-4'>
 						Welcome to Cypher It!
 					</h1>
 				</div>
 				<div className="mb-4">
 					<h5 className='mb-2'>
-						Want to encode/decode your secret text?
+						Want to encrypt/decrypt your secret text?
 					</h5>
 					<p style={{ 'width': '70%', 'margin': 'auto' }}>
 						Simply click on one of our cipher algorithms below and
-						choose the option to either encode or decode your text.
+						choose the option to either encrypt or decrypt your text.
 					</p>
 				</div>
 				<div className="mb-1 container">

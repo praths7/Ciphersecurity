@@ -249,7 +249,7 @@ export const EncryptDecryptSection = ({
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="outline-danger"
+            variant="outline-dark"
             onClick={() => {
               setAction(null);
             }}
