@@ -78,6 +78,7 @@ export const EncryptDecryptSection = ({
             {
               action === ENCRYPT ? "Encrypt Text" : action === DECRYPT && "Decrypt Text"
             }
+            &nbsp;🔐
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -104,7 +105,7 @@ export const EncryptDecryptSection = ({
                 Also enter&nbsp;
                 { action === ENCRYPT ? "encoding" : action === DECRYPT && 'decoding' }
                 &nbsp;key.&nbsp;
-                { action === ENCRYPT && "Or alternatively, generate one." }
+                { (isMonoalphabetic || isHill) && action === ENCRYPT && "Or alternatively, generate one." }
               </p>
               <InputGroup
                 className="mb-3"
