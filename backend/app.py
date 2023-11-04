@@ -9,6 +9,7 @@ from services.homophonic import encode_homophonic, decode_homophonic, filtered_h
 from services.vigenere import encode_vigenere, decode_vigenere, base64_vigenere_table
 from services.hill import encode_hill, decode_hill, check_key_inv, generate_hill_key
 from services.pratz import encode_pratz, decode_pratz
+from services.rgrid import encode_rgrid, decode_rgrid
 
 def defaultHandler(err):
     response = err.get_response()
@@ -181,4 +182,20 @@ def decode_pratz_ciper():
     payload = request.get_json()
     return dumps({
         'data': decode_pratz(payload['text'], payload['cipherKey'])
+    })
+
+@APP.route('/encode/rgrid-cipher', methods=['POST'])
+@cross_origin()
+def encode_rgrid_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': encode_rgrid(payload['text'], payload['cipherKey'])
+    })
+
+@APP.route('/decode/rgrid-cipher', methods=['POST'])
+@cross_origin()
+def decode_rgrid_ciper():
+    payload = request.get_json()
+    return dumps({
+        'data': decode_rgrid(payload['text'], payload['cipherKey'])
     })

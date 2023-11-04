@@ -10,7 +10,7 @@ import {
 } from "../endpoints/homophonicEndpoints";
 import { generateMonoalphabeticKey } from "../endpoints/monoalphabeticEndpoints";
 import { getBase64VigenereMapping } from "../endpoints/vigenereEndpoints";
-import {generateHillKey} from "../endpoints/hillEndpoints";
+import { generateHillKey } from "../endpoints/hillEndpoints";
 
 export const EncryptDecryptSection = ({
   action,
@@ -152,7 +152,7 @@ export const EncryptDecryptSection = ({
                 (isMonoalphabetic || isHill) && action === ENCRYPT &&
                 <div className="text-center">
                   <Button
-                    variant="outline-dark"
+                    variant="primary"
                     className="mb-3"
                     onClick={() => {
                       if (isMonoalphabetic) {
@@ -238,7 +238,7 @@ export const EncryptDecryptSection = ({
               placeholder={cipherValue}
             />
             <Button
-              variant="outline-secondary"
+              variant="primary"
               onClick={() => {
                 navigator.clipboard.writeText(cipherValue);
               }}
