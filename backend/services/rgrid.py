@@ -1,6 +1,7 @@
 import copy
 import random
 import string
+import functools
 
 RELATION = '$'
 SEPERATOR = '?'
@@ -15,6 +16,20 @@ def numerise_key(key):
         value += max(length, 1) * alphabet.index(k)
         length -= 1
     return value
+
+def seed_shuffle(list, key):
+    seed = numerise_key(key)
+    random.seed(seed)
+    random.shuffle(list)
+    return list
+
+def unshuffle_list(shuffled_list, key):
+    n = len(shuffled_list)
+    permutation = [i for i in range(1, n + 1)]
+    shuffled_perm = seed_shuffle(permutation, key)
+    zipped = list(zip(shuffled_list, shuffled_perm))
+    zipped.sort(key=lambda x: x[1])
+    return [a for (a, b) in zipped]
 
 def generate_rgrid(key):
     seed = numerise_key(key)
@@ -39,12 +54,16 @@ def encode_rgrid(text, key):
             row = rgrid[i]
             if (character in row):
                 encoding += f'{i}{RELATION}{row.index(character)}{SEPERATOR}'
-    return encoding[:-1]
+    relations = encoding[:-1].split(SEPERATOR)
+    shuffled = seed_shuffle(relations, key)
+    final_key = functools.reduce(lambda x, y : x + SEPERATOR + y, shuffled)
+    return final_key
 
 def decode_rgrid(cipher, key):
     rgrid = generate_rgrid(key)
+    unshuffled = unshuffle_list(cipher.split(SEPERATOR), key)
     text = ''
-    for relation in cipher.split(SEPERATOR):
+    for relation in unshuffled:
         xy = relation.split(RELATION)
         text += rgrid[int(xy[0])][int(xy[1])]
     return text
