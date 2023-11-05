@@ -1,70 +1,77 @@
-# Getting Started with CipherSecurity
+# Getting started with Cipher It!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Welcome! Follow these instructions to get started 🙂
 
-## Available Scripts
+### NodeJS and NPM
+Start off by installing the latest stable versions of NodeJS and NPM. The following versions of NodeJS and NPM are recommended for effective usage of the application:
+```
+Node Version: v16.17.0
+NPM Version: 8.15.0
+```
+Download Node from: https://nodejs.org/en/. Installing the correct Node version will also install the correct npm version. You can verify versions by running node -v and npm -v.
 
-In the project directory, you can run:
+### Git
+After installing these, download the latest version of git for application management.
+Download git from: https://git-scm.com/downloads.
 
-### `npm start`
+### Clone application from Github
+With git installed, we can now clone the application codebase on our local machines.
+Code repository link is provided below (repository is public). The project is named Ciphersecurity on GitHub and the alias name is Cypher It! Repository Link: https://github.com/praths7/Ciphersecurity.
+Then, clone the application through the HTTPS method by running:
+```
+git clone https://github.com/praths7/Ciphersecurity.git
+```
+*Note*:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application should now be cloned successfully. If there are any permission errors during cloning, please ensure your computer’s ssh public key is added to your profile on Github. The repository is publicly cloneable. No explicit permissions are needed for cloning.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+*Aside*:
 
-### `npm test`
+If you are getting any errors related to xcrun upon using the git clone command, run the following command to download command line tools for successful usage of git commands in terminal:
+```
+xcode-select –install
+```
+If the above does not run or work, run the following command instead:
+```
+sudo xcode-select –reset
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing frontend packages
+After successful cloning, go into the frontend repository on your preferred terminal by running:
+```
+cd frontend
+```
+And then run:
+```
+npm install
+```
+To install all relevant frontend packages needed for the application. You should now be able to see the packages being installed in your local repository from your terminal. The downloading and installing should approximately take ~ 2 minutes.
 
-### `npm run build`
+### Installing python3 and pip3
+Install python3 and pip3 to run the backend code and install python packages respectively. Please download the following recommended versions of python and pip:
+```
+Python: 3.10.7
+Pip: pip 22.2.2
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installing backend packages
+Let’s now install the relevant backend packages by running the following three commands:
+```
+pip3 install python-dotenv
+pip3 install flask
+pip3 install flask_cors
+pip3 install numpy
+pip3 install pandas
+pip3 install dataframe_image
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Running the Application
+We are now ready to run the application. Start off by opening two terminals. Navigate to the frontend folder in both terminals. In the first terminal run:
+```
+npm run start-backend
+```
+to start the backend. Then run the following command in the second terminal:
+```
+npm start
+```
+to start the frontend. You should now be able to see the frontend of the application after brief loading on your preferred browser.
