@@ -1,8 +1,8 @@
 # Getting started with Cipher It!
 
-![img.png](./home.png)
-
 ## Welcome! Follow these instructions to get started 🙂
+
+![img.png](./home.png)
 
 ### NodeJS and NPM
 Start off by installing the latest stable versions of NodeJS and NPM. The following versions of NodeJS and NPM are recommended for effective usage of the application:
