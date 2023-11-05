@@ -55,14 +55,14 @@ npm install
 To install all relevant frontend packages needed for the application. You should now be able to see the packages being installed in your local repository from your terminal. The downloading and installing should approximately take ~ 2 minutes.
 
 ### Installing python3 and pip3 🐍
-Install python3 and pip3 to run the backend code and install python packages respectively. Please download the following recommended versions of python and pip:
+Install python3 and pip3 to run the backend code and install python packages respectively. Please download the following recommended versions of python and pip (latest versions are fine as well):
 ```
 Python: 3.10.7
 Pip: pip 22.2.2
 ```
 
 ### Installing backend packages 🤓
-Let’s now install the relevant backend packages by running the following three commands:
+Let’s now install the relevant backend packages by running the following six commands:
 ```
 pip3 install python-dotenv
 pip3 install flask
