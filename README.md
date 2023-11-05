@@ -1,6 +1,7 @@
 # Getting started with Cipher It!
 
 ## Welcome! Follow these instructions to get started 🙂
+Cypher It! is a website where individuals can explore the encryption and decryption methods of seven types of ciphers. Namely, Caesar, Monoalphabetic, Homophonic, Vigenère, Hill, r-Grid, and, my personal invention, Pratz cipher.
 
 ![img.png](./home.png)
 
