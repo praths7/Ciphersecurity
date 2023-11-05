@@ -111,7 +111,3 @@ def decode_hill(cipher, key):
                     text += alphabet[int(code) - 1]
         answer[key] = text
     return answer
-
-#key = generate_hill_key()
-#cipher = encode_hill('mukabalaa', key)
-#print(decode_hill(cipher, key))

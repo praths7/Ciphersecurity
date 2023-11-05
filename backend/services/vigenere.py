@@ -57,5 +57,3 @@ def decode_vigenere(cipher, key):
         cindex = alphabet.index(cipher_symbol)
         text += mapping[key_anchor][cindex]
     return text
-
-base64_vigenere_table('key')
