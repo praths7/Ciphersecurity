@@ -1,5 +1,7 @@
 # Getting started with Cipher It!
 
+![img.png](img.png)
+
 ## Welcome! Follow these instructions to get started 🙂
 
 ### NodeJS and NPM
