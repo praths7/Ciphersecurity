@@ -1,6 +1,6 @@
 # Getting started with Cipher It!
 
-![img.png](img.png)
+![img.png](./home.png)
 
 ## Welcome! Follow these instructions to get started 🙂
 
