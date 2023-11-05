@@ -1,6 +1,6 @@
 # Getting started with Cipher It! 🍾
 
-## Hi! Welcome to Cipher It! 🔐
+## Hi! 👋 Welcome to Cipher It! 🔐
 Cypher It! is a website where individuals can explore the encryption 
 and decryption methods of seven types of ciphers. Namely, Caesar, Monoalphabetic, Homophonic, Vigenère, Hill, r-Grid, and, 
 my personal invention, Pratz cipher. I hope you have fun cloning this repo and trying out the ciphers!
